@@ -1,0 +1,41 @@
+<!-- 基础模板页面 -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}留言板{% endblock %}</title>
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        {{ bootstrap.load_css() }}
+    </head>
+    <body>
+        <main class="container">
+            <header>
+                <h1 class="text-center display-4">
+                    <a href="{{ url_for('index') }}" class="text-primary"><strong>留言板</strong></a>
+                    <small style="font-size: 24px" class="text-warning">畅游世界</small>
+                </h1>
+            </header>
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-primary">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% block content %}{% endblock %}
+            <footer class="text-center">
+                {% block footer %}
+                <small> &copy; 2022 <a href="http://github.com/FaP8235" title="制作人：FaP8235">FaP8235</a> /
+                    <a href="https://github.com/FaP8235/flaskMsgBoard" title="源码已经公布在GitHub，供Fork用于学习、交流">GitHub</a> /
+                </small>
+                <p><a id="bottom" href="#" title="Go Top">&uarr;</a></p>
+                {% endblock %}
+            </footer>
+        </main>
+
+        {{ bootstrap.load_js() }}
+        {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+        {{ moment.locale(auto_detect=True) }}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </body>
+</html>
